@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pemilu OSIS & MPK - SMAN 1 Waru</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+<nav id="mainNav">
+  <div class="nav-left">
+    <img src="logosmantaru.png" />
+    <h1>Pemilu OSIS & MPK - SMAN 1 Waru</h1>
+  </div>
+  <div class="nav-right">
+    <!-- Tombol login default -->
+    <button onclick="toggleLogin()" id="btnLoginPanitia">Login Panitia</button>
+
+    <!-- Settings (muncul setelah login) -->
+    <div class="settings-menu hidden" id="adminSettings">
+      <button class="settings-btn" onclick="toggleSettings()">⚙ Settings ▾</button>
+      <div class="admin-avatar">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M12 14c-5 0-8 2.5-8 5v1h16v-1c0-2.5-3-5-8-5z"/>
+        </svg>
+      </div>
+      <div id="settingsDropdown" class="dropdown">
+        <button id="btnHasil" class="active" onclick="showTab('hasil')">📊 Hasil Voting</button>
+        <button id="btnEdit" onclick="showTab('edit')">✏️ Edit Voting</button>
+        <button onclick="logoutAdmin()">🚪 Logout</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Voting Section -->
+<div class="container" id="voteSection">
+  <h2>MPK</h2>
+  <div id="mpkCandidates" class="candidate-grid"></div>
+  <h2>OSIS</h2>
+  <div id="osisCandidates" class="candidate-grid"></div>
+  <button class="vote-btn" onclick="submitVote()">Kirim Suara</button>
+</div>
+
+<!-- Admin Login Overlay -->
+<div class="overlay" id="adminLogin">
+  <button class="close-btn" onclick="backToVoting()">✖</button>
+  <div class="login-box">
+    <h2>Login Panitia</h2>
+    <input type="password" id="adminPass" placeholder="Masukkan password"><br>
+    <button class="vote-btn" onclick="checkAdmin()">Masuk</button>
+  </div>
+</div>
+
+<!-- Admin Panel -->
+<div class="container" id="adminPanel" style="display:none;">
+  <!-- Hasil Voting -->
+  <div id="tab-hasil" class="tab-content">
+    <h2 id="titleMPK">Hasil Voting MPK</h2>
+    <canvas id="chartMPK"></canvas>
+    <h2 id="titleOSIS">Hasil Voting OSIS</h2>
+    <canvas id="chartOSIS"></canvas>
+
+    <button class="vote-btn danger" onclick="resetVote()">♻️ Reset Voting</button>
+  </div>
+
+  <!-- Edit Voting -->
+  <div id="tab-edit" class="tab-content" style="display:none;">
+    <h2>Edit Hasil Voting</h2>
+    <div id="editVotes"></div>
+    <button class="vote-btn" onclick="saveEdits()">Simpan Perubahan</button>
+    <button class="vote-btn" onclick="downloadCSV()">Download CSV</button>
+  </div>
+</div>
+
+<!-- Halaman Terima Kasih -->
+<div class="container" id="thankYouPage" style="display:none;">
+  <h2>Terima Kasih!</h2>
+  <p>Suara Anda telah berhasil dicatat.</p>
+  <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" width="120" alt="Thanks">
+</div>
+
+<!-- Notification -->
+<div id="notifSlide">Suara berhasil dikirim!</div>
+
+<!-- Modal Konfirmasi Reset Voting -->
+<div id="resetModal" class="modal">
+  <div class="modal-content">
+    <h3>⚠️ Konfirmasi Reset Voting</h3>
+    <p>Apakah Anda yakin ingin mereset semua data voting? <br>
+    <small>Tindakan ini tidak bisa dibatalkan.</small></p>
+    <div class="modal-actions">
+      <button class="vote-btn danger" onclick="confirmReset()">Ya, Reset</button>
+      <button class="vote-btn" onclick="closeResetModal()">Batal</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

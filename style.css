@@ -1,0 +1,175 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background:#f4f6f9;
+  margin:0;
+}
+nav {
+  background:#003366; 
+  color:white; 
+  padding:12px 20px; 
+  display:flex; 
+  justify-content:space-between; 
+  align-items:center;
+  position:relative;
+  z-index:1000;
+}
+.nav-left { display:flex; align-items:center; gap:10px; }
+.nav-left img { height:40px; }
+nav h1 { margin:0; font-size:20px; }
+.nav-right { display:flex; align-items:center; gap:10px; }
+.nav-right button { 
+  background:white; 
+  color:#003366; 
+  border:none; 
+  padding:6px 12px; 
+  border-radius:6px; 
+  cursor:pointer; 
+  font-weight:bold; 
+}
+.nav-right button:hover { background:#e3e3e3; }
+
+.container {
+  max-width:1100px;
+  margin:20px auto;
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+h2 { text-align:center; color:#003366; }
+
+.candidate-grid {
+  display:grid; 
+  grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); 
+  gap:20px; 
+  justify-items:center;
+}
+.card {
+  background:#fafafa; 
+  border-radius:12px; 
+  padding:15px; 
+  text-align:center; 
+  box-shadow:0 2px 6px rgba(0,0,0,0.08); 
+  cursor:pointer; 
+  transition: transform .2s; 
+  display:flex; 
+  flex-direction:column; 
+  align-items:center;
+}
+.card:hover { transform:scale(1.03); }
+.card img {
+  width:120px; 
+  height:120px; 
+  object-fit:cover; 
+  border-radius:50%; 
+  border:2px solid #003366;
+}
+.card h3 { margin:10px 0 0 0; color:#003366; }
+.card input[type="radio"] { display:none; }
+.card.selected { border:3px solid #007bff; }
+
+.vote-btn {
+  background:#003366; 
+  color:white; 
+  border:none; 
+  padding:12px 20px; 
+  border-radius:8px; 
+  cursor:pointer; 
+  margin:20px auto 0 auto; 
+  font-size:16px; 
+  display:block;
+}
+.vote-btn:hover { background:#001f4d; }
+.vote-btn.danger { background:#c0392b; }
+.vote-btn.danger:hover { background:#922b21; }
+
+.hidden { display:none; }
+
+.overlay {
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.6);
+  display:none; align-items:center; justify-content:center;
+}
+.overlay.active { display:flex; }
+.login-box {
+  background:white; padding:25px; border-radius:10px; width:300px;
+  text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+.close-btn {
+  position:absolute; top:20px; right:20px; background:red; color:white;
+  border:none; border-radius:50%; width:32px; height:32px; cursor:pointer;
+}
+
+#notifSlide {
+  position:fixed; bottom:20px; right:20px;
+  background:#28a745; color:white;
+  padding:12px 20px; border-radius:8px;
+  opacity:0; transition:opacity .4s;
+}
+#notifSlide.show { opacity:1; }
+
+.modal {
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.6); display:none;
+  justify-content:center; align-items:center;
+}
+.modal-content {
+  background:white; padding:25px; border-radius:10px;
+  max-width:400px; text-align:center;
+}
+.modal-actions { margin-top:20px; display:flex; gap:10px; justify-content:center; }
+
+/* Admin Settings */
+.settings-menu {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  position:relative;
+}
+.settings-btn {
+  background:#003366;
+  color:white;
+  border:none;
+  padding:8px 15px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
+}
+.settings-btn:hover { background:#001f4d; }
+.admin-avatar {
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:#007bff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+.admin-avatar svg {
+  width:22px;
+  height:22px;
+  fill:white;
+}
+.dropdown {
+  display:none;
+  position:absolute;
+  top:50px;
+  right:0;
+  background:white;
+  border-radius:8px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  padding:10px;
+  min-width:160px;
+}
+.dropdown button {
+  background:none;
+  border:none;
+  display:block;
+  width:100%;
+  text-align:left;
+  padding:8px 12px;
+  cursor:pointer;
+}
+.dropdown button:hover { background:#f0f0f0; }
+.dropdown button.active { font-weight:bold; color:#003366; }
