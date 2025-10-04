@@ -171,4 +171,13 @@ h2{ text-align:center; color:var(--blue); margin:14px 0; }
   .chart-box{ flex-basis:100%; }
   #thankYouPage .thank-card{ padding:18px; }
 }
+
 .hidden{ display:none !important; }
+
+/* Logo Navbar */
+.nav-left img {
+  height: 40px;
+  width: auto;
+  max-height: 45px;  /* batasi tinggi maksimal */
+  object-fit: contain;
+}
