@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pemilu OSIS & MPK - SMAN 1 Waru</title>
+
+  <!-- styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- libs -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav-left">
+      <img src="logosmantaru.png" alt="logo sman1 waru" class="logo" />
+      <h1>Pemilu OSIS & MPK - SMAN 1 Waru</h1>
+    </div>
+
+    <div class="nav-right">
+      <div id="adminSettings" class="settings-menu hidden" aria-hidden="true">
+        <button class="settings-btn" id="settingsToggle" title="Pengaturan Panitia">⚙ Panitia ▾</button>
+        <div id="settingsDropdown" class="dropdown" aria-hidden="true">
+          <button id="btnHasil" class="active" onclick="showTab('hasil')">📊 Hasil Voting</button>
+          <button id="btnEdit" onclick="showTab('edit')">✏️ Edit Voting</button>
+          <button onclick="logoutAdmin()">🚪 Logout</button>
+        </div>
+      </div>
+
+      <button id="btnLoginPanitia" class="cta" onclick="toggleLogin()">Login Panitia</button>
+    </div>
+  </nav>
+
+  <!-- VOTING SECTION -->
+  <main class="container" id="voteSection" tabindex="-1">
+    <section>
+      <h2>MPK</h2>
+      <div id="mpkCandidates" class="candidate-grid" aria-label="Kandidat MPK"></div>
+    </section>
+
+    <section>
+      <h2>OSIS</h2>
+      <div id="osisCandidates" class="candidate-grid" aria-label="Kandidat OSIS"></div>
+    </section>
+
+    <button class="vote-btn" id="submitVoteBtn" onclick="submitVote()">Kirim Suara</button>
+  </main>
+
+  <!-- ADMIN LOGIN (overlay) -->
+  <div id="adminLogin" class="overlay" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="login-box" role="document">
+      <button class="close-btn" id="closeLogin" title="Tutup">✖</button>
+      <h2>Login Panitia</h2>
+      <input type="password" id="adminPass" placeholder="Masukkan password" aria-label="password panitia" />
+      <div style="height:10px"></div>
+      <button class="vote-btn" onclick="checkAdmin()">Masuk</button>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <section class="container" id="adminPanel" style="display:none;">
+    <div id="tab-hasil" class="tab-content">
+      <div id="adminChartsWrapper">
+        <div class="chart-box">
+          <h3 id="titleMPK">Hasil Voting MPK</h3>
+          <canvas id="chartMPK"></canvas>
+        </div>
+        <div class="chart-box">
+          <h3 id="titleOSIS">Hasil Voting OSIS</h3>
+          <canvas id="chartOSIS"></canvas>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:12px;">
+        <button class="vote-btn danger" onclick="resetVote()">♻️ Reset Voting</button>
+      </div>
+    </div>
+
+    <div id="tab-edit" class="tab-content" style="display:none;">
+      <h3>Edit Hasil Voting</h3>
+      <div id="editVotes"></div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:12px;">
+        <button class="vote-btn" onclick="saveEdits()">Simpan Perubahan</button>
+        <button class="vote-btn" onclick="downloadCSV()">Download CSV</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- THANK YOU PAGE (overlay) -->
+  <div id="thankYouPage" aria-hidden="true">
+    <div class="thank-card" role="dialog" aria-modal="false">
+      <img class="thank-icon" src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="Terima Kasih">
+      <h2>Terima Kasih!</h2>
+      <p>Suara Anda telah berhasil dicatat.</p>
+    </div>
+  </div>
+
+  <!-- NOTIFICATION -->
+  <div id="notifSlide" role="status" aria-live="polite">Suara berhasil dikirim!</div>
+
+  <!-- RESET CONFIRM -->
+  <div id="resetModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <h3>⚠️ Konfirmasi Reset Voting</h3>
+      <p>Apakah Anda yakin ingin mereset semua data voting?</p>
+      <div class="modal-actions">
+        <button class="vote-btn danger" onclick="confirmReset()">Ya, Reset</button>
+        <button class="vote-btn" onclick="closeResetModal()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- app -->
+  <script src="app.js"></script>
+</body>
+</html>
