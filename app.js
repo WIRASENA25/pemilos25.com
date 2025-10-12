@@ -13,15 +13,15 @@ const db = firebase.firestore();
 
 /* ---------- DATA (contoh kandidat) ---------- */
 const mpkCandidates = [
-  { name: "Kandidat 1", img: "Chelin.jpg" },
-  { name: "Kandidat 2", img: "Friska.jpg" },
+  { name: "Chelin Khania Putri", img: "Chelin.jpg" },
+  { name: "Friska Aurellia Hidayah", img: "Friska.jpg" },
 
 ];
 const osisCandidates = [
-  { name: "Kandidat 1", img: "Raihanna.jpg" },
-  { name: "Kandidat 2", img: "Asyraf.jpg" },
-  { name: "Kandidat 3", img: "Chessy.jpg" },
-  { name: "Kandidat 4", img: "Mirza.jpg" },
+  { name: "Raihanna Jinan U.R", img: "Raihanna.jpg" },
+  { name: "Asyraf Rafa H.P", img: "Asyraf.jpg" },
+  { name: "Caturina Intan Tanadi", img: "Chessy.jpg" },
+  { name: "Mirza Aliana", img: "Mirza.jpg" },
 
 ];
 
@@ -333,4 +333,5 @@ window.addEventListener("load", () => {
 
   // small accessibility: allow Enter on focused login button
   btnLogin.addEventListener("keyup", (e) => { if (e.key === "Enter") toggleLogin(); });
+
 });
